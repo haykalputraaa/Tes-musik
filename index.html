@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainy Sad Words</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(#101c2b, #02060d);
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background hujan */
+.rain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+    repeating-linear-gradient(
+        105deg,
+        transparent 0px,
+        transparent 12px,
+        rgba(180,210,255,.35) 13px,
+        transparent 14px
+    );
+    background-size: 30px 100px;
+    animation: rain 0.4s linear infinite;
+}
+
+@keyframes rain {
+    from { background-position: 0 0; }
+    to { background-position: -20px 100px; }
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+    background: rgba(0,0,0,.35);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 18px;
+    backdrop-filter: blur(5px);
+}
+
+h1 {
+    color: #a9cfff;
+    font-size: 28px;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+#kata {
+    font-size: 22px;
+    line-height: 1.7;
+    min-height: 110px;
+    text-shadow: 0 0 15px #8abaff;
+}
+
+.penulis {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #9daec4;
+}
+
+.footer {
+    position: fixed;
+    bottom: 20px;
+    font-size: 11px;
+    color: #8190a5;
+    z-index: 2;
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain"></div>
+
+<div class="container">
+    <h1>RAINY NIGHT</h1>
+
+    <div id="kata">
+        "Kadang kita harus tersenyum,
+        meskipun hati sedang tidak baik-baik saja."
+    </div>
+
+    <div class="penulis">
+        — Sebuah cerita yang tidak selesai.
+    </div>
+</div>
+
+<div class="footer">
+    LISTEN TO THE RAIN 🌧️
+</div>
+
+<!-- MUSIK -->
+<audio id="musik" loop>
+    <source src="haykal.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const musik = document.getElementById("musik");
+
+// Putar otomatis setelah interaksi pertama
+function mulaiMusik() {
+    musik.play().catch(() => {});
+    document.removeEventListener("click", mulaiMusik);
+    document.removeEventListener("touchstart", mulaiMusik);
+}
+
+document.addEventListener("click", mulaiMusik);
+document.addEventListener("touchstart", mulaiMusik);
+
+// Kata-kata berganti otomatis
+const daftarKata = [
+    "Kadang kita harus tersenyum, meskipun hati sedang tidak baik-baik saja.",
+    "Hujan selalu punya cara untuk mengingatkan kenangan.",
+    "Tidak semua yang pergi ingin dilupakan.",
+    "Ada cerita yang hanya bisa disimpan dalam diam.",
+    "Malam ini hujan, dan pikiranku kembali kepadamu.",
+    "Terkadang diam adalah cara terbaik untuk menyembunyikan perasaan."
+];
+
+let index = 0;
+
+setInterval(() => {
+    index = (index + 1) % daftarKata.length;
+    document.getElementById("kata").innerText =
+        '"' + daftarKata[index] + '"';
+}, 5000);
+
+</script>
+
+</body>
+</html>
